@@ -3029,10 +3029,11 @@ GameObject:
   m_Component:
   - component: {fileID: 2002734765}
   - component: {fileID: 2002734764}
-  - component: {fileID: 2002734763}
   - component: {fileID: 2002734762}
-  - component: {fileID: 2002734761}
   - component: {fileID: 2002734766}
+  - component: {fileID: 2002734769}
+  - component: {fileID: 2002734768}
+  - component: {fileID: 2002734767}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -3040,19 +3041,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2002734761
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2002734760}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e359c6c2c7a4a140ba6c75ca51b4fe7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NetworkHud
-  address: 127.0.0.1
 --- !u!114 &2002734762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3070,27 +3058,6 @@ MonoBehaviour:
   Spawns:
   - {fileID: 1079994503}
   - {fileID: 555518590}
---- !u!114 &2002734763
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2002734760}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f48f002b825cbd45a19bd96d90f9edb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: FishNet.Runtime::FishNet.Transporting.Tugboat.Tugboat
-  _stopSocketsOnThread: 0
-  _dontRoute: 0
-  _reuseAddress: 0
-  _ipv4BindAddress: 
-  _enableIpv6: 1
-  _ipv6BindAddress: 
-  _port: 7770
-  _maximumClients: 4095
-  _clientAddress: localhost
 --- !u!114 &2002734764
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3138,7 +3105,65 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelPlayerRespawner
   playerPrefab: {fileID: 8706744762456938368, guid: 8456d770e8d2acf47b7626784735edbf, type: 3}
-  staleTimeout: 3
+  waitForAllTimeout: 10
+--- !u!114 &2002734767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2002734760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d40cceaf9aae6e44f956c661e1df3344, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RelayHud
+  localAddress: 127.0.0.1
+--- !u!114 &2002734768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2002734760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da80cd813f38f3a46b7a7287d1cb3990, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RelayConnector
+  maxClients: 1
+  connectionType: dtls
+  localPort: 7770
+--- !u!114 &2002734769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2002734760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cdcee4396754c63a1574492499cffc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FishyUnityTransport::FishNet.Transporting.UTP.UnityTransport
+  m_ProtocolType: 0
+  m_UseWebSockets: 0
+  m_UseEncryption: 0
+  m_MaxPacketQueueSize: 128
+  m_MaxPayloadSize: 6144
+  m_HeartbeatTimeoutMS: 500
+  m_ConnectTimeoutMS: 1000
+  m_MaxConnectAttempts: 60
+  m_DisconnectTimeoutMS: 30000
+  ConnectionData:
+    Address: 127.0.0.1
+    Port: 7777
+    ServerListenAddress: 
+  DebugSimulator:
+    PacketDelayMS: 0
+    PacketJitterMS: 0
+    PacketDropRate: 0
+  m_MaximumClients: 4095
 --- !u!1001 &2020961354
 PrefabInstance:
   m_ObjectHideFlags: 0
