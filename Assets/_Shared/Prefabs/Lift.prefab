@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2441078410922321348}
   - component: {fileID: 1739983898111736047}
   - component: {fileID: 5982014296486372783}
+  - component: {fileID: 2077567255827219591}
   m_Layer: 0
   m_Name: Platform
   m_TagString: Untagged
@@ -107,6 +108,21 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 3, y: 0.42}
   m_EdgeRadius: 0
+--- !u!114 &2077567255827219591
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2847409672920611997}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a6a39c46bf52104ba8efe3100bce3f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FishNet.Runtime::FishNet.Object.EmptyNetworkBehaviour
+  _componentIndexCache: 255
+  _addedNetworkObject: {fileID: 8751955454931881705}
+  _networkObjectCache: {fileID: 0}
 --- !u!1 &5377637547147338592
 GameObject:
   m_ObjectHideFlags: 0
@@ -209,6 +225,7 @@ GameObject:
   - component: {fileID: 6035069739421688736}
   - component: {fileID: 8751955454931881705}
   - component: {fileID: 1777707946728825379}
+  - component: {fileID: 3412573142667783185}
   m_Layer: 0
   m_Name: Lift
   m_TagString: Untagged
@@ -308,8 +325,25 @@ MonoBehaviour:
   requireAll: 0
   invert: 0
   platform: {fileID: 1739983898111736047}
+  platformAnchor: {fileID: 2077567255827219591}
   travelHeight: 3
   speed: 2.5
   cycleWhilePowered: 1
   pauseTime: 2.5
   carryCheckHeight: 0.2
+  rideCheckHeight: 0.12
+--- !u!114 &3412573142667783185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7813534231107285050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64b809ecb90165048b3bfad03d5e9c8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CrushGuard
+  crusher: {fileID: 5982014296486372783}
+  checkDepth: 0.3
+  clearance: 0.03

@@ -1,23 +1,23 @@
+using FishNet.Connection;
+using FishNet.Object;
+using FishNet.Object.Synchronizing;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Charger : PowerSource
 {
-    [SerializeField] private Vector2 detectSize = new Vector2(1f, 1.2f);
-    [SerializeField] private Vector2 detectOffset = new Vector2(0f, 0.6f);
+    [SerializeField] private Vector2 detectSize = new Vector2(1.6f, 1.5f);
+    [SerializeField] private Vector2 detectOffset = new Vector2(0f, 0.75f);
     [SerializeField] private Vector2 checkpointOffset = new Vector2(0f, 0.05f);
+    [SerializeField] private float activeDuration = 10f;
+    [SerializeField] private float serverRangeMargin = 0.5f;
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Sprite offSprite;
     [SerializeField] private Sprite onSprite;
 
-    private readonly Collider2D[] hits = new Collider2D[16];
-    private ContactFilter2D filter;
+    private readonly SyncVar<uint> activeUntilTick = new SyncVar<uint>();
     private PlayerController lastCheckpointed;
-
-    protected override void Awake()
-    {
-        base.Awake();
-        filter = new ContactFilter2D { useTriggers = false };
-    }
+    private bool localInRange;
 
     public override void OnStartClient()
     {
@@ -25,35 +25,64 @@ public class Charger : PowerSource
         ApplyVisual(IsOn);
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
-        bool server = IsServerInitialized;
-        PlayerController local = IsClientInitialized ? PlayerController.Local : null;
-        if (!server && local == null)
+        localInRange = false;
+        if (!IsClientInitialized)
             return;
-
-        Vector2 center = (Vector2)transform.position + detectOffset;
-        int count = Physics2D.OverlapBox(center, detectSize, 0f, filter, hits);
-        bool anyPlayer = false;
-        bool localInside = false;
-        for (int i = 0; i < count; i++)
-        {
-            PlayerController p = hits[i].GetComponentInParent<PlayerController>();
-            if (p == null)
-                continue;
-            anyPlayer = true;
-            if (p == local)
-                localInside = true;
-        }
-
-        if (server && anyPlayer && !IsOn)
-            SetOn(true);
-
-        if (localInside && lastCheckpointed != local)
+        PlayerController local = PlayerController.Local;
+        if (local == null || !InRange(local, 0f))
+            return;
+        localInRange = true;
+        if (lastCheckpointed != local)
         {
             local.SetCheckpoint((Vector2)transform.position + checkpointOffset);
             lastCheckpointed = local;
         }
+        Keyboard kb = Keyboard.current;
+        if (kb != null && kb.eKey.wasPressedThisFrame)
+            RequestActivate();
+    }
+
+    private void FixedUpdate()
+    {
+        if (!IsServerInitialized || !IsOn)
+            return;
+        if (TimeManager.Tick >= activeUntilTick.Value)
+            SetOn(false);
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void RequestActivate(NetworkConnection caller = null)
+    {
+        if (caller == null || !CallerInRange(caller))
+            return;
+        activeUntilTick.Value = TimeManager.Tick + TimeManager.TimeToTicks(activeDuration);
+        SetOn(true);
+    }
+
+    private bool CallerInRange(NetworkConnection caller)
+    {
+        foreach (NetworkObject nob in caller.Objects)
+        {
+            if (nob == null)
+                continue;
+            PlayerController p = nob.GetComponent<PlayerController>();
+            if (p != null && InRange(p, serverRangeMargin))
+                return true;
+        }
+        return false;
+    }
+
+    private bool InRange(PlayerController player, float margin)
+    {
+        Collider2D col = player.GetComponent<Collider2D>();
+        if (col == null)
+            return false;
+        Bounds area = new Bounds((Vector2)transform.position + detectOffset, detectSize + Vector2.one * margin * 2f);
+        Bounds b = col.bounds;
+        b.center = new Vector3(b.center.x, b.center.y, area.center.z);
+        return area.Intersects(b);
     }
 
     protected override void OnPowerStateChanged(bool on)
@@ -65,6 +94,48 @@ public class Charger : PowerSource
     {
         if (spriteRenderer != null && offSprite != null && onSprite != null)
             spriteRenderer.sprite = on ? onSprite : offSprite;
+    }
+
+    private float RemainingSeconds()
+    {
+        if (!IsOn || TimeManager == null)
+            return 0f;
+        long ticks = (long)activeUntilTick.Value - TimeManager.Tick;
+        return Mathf.Max(0f, (float)(ticks * TimeManager.TickDelta));
+    }
+
+    private void OnGUI()
+    {
+        Camera cam = Camera.main;
+        if (cam == null || !IsClientInitialized)
+            return;
+
+        if (IsOn)
+        {
+            Vector3 top = cam.WorldToScreenPoint(transform.position + new Vector3(0f, 1.9f, 0f));
+            if (top.z > 0f)
+            {
+                GUIStyle timer = new GUIStyle(GUI.skin.label);
+                timer.fontSize = 22;
+                timer.fontStyle = FontStyle.Bold;
+                timer.alignment = TextAnchor.MiddleCenter;
+                timer.normal.textColor = new Color(0.45f, 1f, 0.55f);
+                GUI.Label(new Rect(top.x - 40f, Screen.height - top.y - 15f, 80f, 30f), Mathf.CeilToInt(RemainingSeconds()).ToString(), timer);
+            }
+        }
+
+        PlayerController local = PlayerController.Local;
+        if (!localInRange || local == null)
+            return;
+        Vector3 p = cam.WorldToScreenPoint(local.transform.position + new Vector3(0.75f, 0.75f, 0f));
+        if (p.z <= 0f)
+            return;
+        GUIStyle key = new GUIStyle(GUI.skin.box);
+        key.fontSize = 20;
+        key.fontStyle = FontStyle.Bold;
+        key.alignment = TextAnchor.MiddleCenter;
+        key.normal.textColor = Color.white;
+        GUI.Box(new Rect(p.x - 16f, Screen.height - p.y - 16f, 32f, 32f), "E", key);
     }
 
     private void OnDrawGizmos()

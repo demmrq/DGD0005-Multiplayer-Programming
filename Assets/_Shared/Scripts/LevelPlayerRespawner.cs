@@ -42,8 +42,11 @@ public class LevelPlayerRespawner : MonoBehaviour
     {
         if (!args.QueueData.AsServer)
             return;
+        PlayerVisuals[] players = FindObjectsByType<PlayerVisuals>(FindObjectsSortMode.None);
+        if (players.Length == 0)
+            return;
         rememberedSlots.Clear();
-        foreach (PlayerVisuals p in FindObjectsByType<PlayerVisuals>(FindObjectsSortMode.None))
+        foreach (PlayerVisuals p in players)
             if (p.Owner != null && p.Owner.IsValid && p.Slot >= 0)
                 rememberedSlots[p.OwnerId] = p.Slot;
     }

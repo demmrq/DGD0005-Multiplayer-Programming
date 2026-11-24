@@ -10,18 +10,22 @@ public class Spikes : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        TryKill(other);
+        TryFail(other);
     }
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        TryKill(other);
+        TryFail(other);
     }
 
-    private void TryKill(Collider2D other)
+    private void TryFail(Collider2D other)
     {
         PlayerController player = other.GetComponentInParent<PlayerController>();
-        if (player != null && player.IsOwner)
+        if (player == null || !player.IsOwner)
+            return;
+        if (LevelRestarter.Instance != null)
+            LevelRestarter.Instance.RequestRestart();
+        else
             player.Kill();
     }
 }
