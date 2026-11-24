@@ -413,7 +413,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3144643748273747096, guid: 643ee99c3b6172c4f898723f518322dd, type: 3}
       propertyPath: SceneId
-      value: 4292738527
+      value: 4286414511
       objectReference: {fileID: 0}
     - target: {fileID: 3144643748273747096, guid: 643ee99c3b6172c4f898723f518322dd, type: 3}
       propertyPath: WasActiveDuringEdit
@@ -1058,11 +1058,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4063209717537332074, guid: 56f3a5eba30cc30428278d128888442e, type: 3}
       propertyPath: SceneId
-      value: 1859614197
+      value: 4025974501
       objectReference: {fileID: 0}
     - target: {fileID: 4063209717537332074, guid: 56f3a5eba30cc30428278d128888442e, type: 3}
       propertyPath: WasActiveDuringEdit
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5149264073376516599, guid: 56f3a5eba30cc30428278d128888442e, type: 3}
+      propertyPath: nextScene
+      value: Level 2
       objectReference: {fileID: 0}
     - target: {fileID: 7070097784315269783, guid: 56f3a5eba30cc30428278d128888442e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1176,7 +1180,7 @@ PrefabInstance:
       objectReference: {fileID: 304361634}
     - target: {fileID: 5242626844117858451, guid: 27b929a0a091f754eaa4760e9f3dd7d9, type: 3}
       propertyPath: SceneId
-      value: 2147349975
+      value: 4294803261
       objectReference: {fileID: 0}
     - target: {fileID: 5242626844117858451, guid: 27b929a0a091f754eaa4760e9f3dd7d9, type: 3}
       propertyPath: WasActiveDuringEdit
@@ -1384,7 +1388,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5650747380687353134, guid: 254da939e67ad0d4c8c90840834d0214, type: 3}
       propertyPath: SceneId
-      value: 1861609439
+      value: 4252983029
       objectReference: {fileID: 0}
     - target: {fileID: 5650747380687353134, guid: 254da939e67ad0d4c8c90840834d0214, type: 3}
       propertyPath: WasActiveDuringEdit
@@ -2184,7 +2188,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3144643748273747096, guid: 643ee99c3b6172c4f898723f518322dd, type: 3}
       propertyPath: SceneId
-      value: 3940417533
+      value: 3749674733
       objectReference: {fileID: 0}
     - target: {fileID: 3144643748273747096, guid: 643ee99c3b6172c4f898723f518322dd, type: 3}
       propertyPath: WasActiveDuringEdit

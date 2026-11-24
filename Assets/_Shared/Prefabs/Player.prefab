@@ -56,7 +56,10 @@ MonoBehaviour:
   <ComponentIndex>k__BackingField: 0
   <PredictedSpawn>k__BackingField: {fileID: 0}
   <PredictedOwner>k__BackingField: {fileID: 0}
-  NetworkBehaviours: []
+  NetworkBehaviours:
+  - {fileID: 6034641468112509372}
+  - {fileID: 1793234781279992718}
+  - {fileID: 2050138879423862887}
   InitializedParentNetworkBehaviour: {fileID: 0}
   InitializedNestedNetworkObjects: []
   RuntimeParentNetworkBehaviour: {fileID: 0}
@@ -67,7 +70,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _preventDespawnOnDisconnect: 0
   _defaultDespawnType: 0
-  _initializedTimestamp: 0
+  _initializedTimestamp: -8584060901216584585
   _localLevelOfDetailCalculationType: 0
   _useLevelOfDetail: 0
   _useRootLevelOfDetail: 1
@@ -86,15 +89,15 @@ MonoBehaviour:
   _spectatorInterpolation: 2
   _enableTeleport: 0
   _teleportThreshold: 1
-  <PrefabId>k__BackingField: 65535
+  <PrefabId>k__BackingField: 7
   <SpawnableCollectionId>k__BackingField: 0
   <AssetPathHash>k__BackingField: 11754161972567290488
   SceneId: 0
   SerializedTransformProperties:
     Position: {x: 0, y: 0, z: 0}
-    Rotation: {x: 0, y: 0, z: 0, w: 0}
-    Scale: {x: 0, y: 0, z: 0}
-    IsValid: 0
+    Rotation: {x: 0, y: 0, z: 0, w: 1}
+    Scale: {x: 1, y: 1, z: 1}
+    IsValid: 1
 --- !u!114 &6034641468112509372
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -107,9 +110,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2836e36774ca1c4bbbee976e17b649c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: FishNet.Runtime::FishNet.Component.Transforming.NetworkTransform
-  _componentIndexCache: 255
+  _componentIndexCache: 0
   _addedNetworkObject: {fileID: 8706744762456938368}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 8706744762456938368}
   _componentConfiguration: 0
   _synchronizeParent: 0
   _packing:
@@ -227,9 +230,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb8ba0f89c5412f46a2cce35f56a1362, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  _componentIndexCache: 255
+  _componentIndexCache: 1
   _addedNetworkObject: {fileID: 8706744762456938368}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 8706744762456938368}
   moveSpeed: 6.5
   jumpSpeed: 12
   gravityScale: 3
@@ -248,9 +251,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7218d6d76eeb8304eb996956337ed53a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerVisuals
-  _componentIndexCache: 255
+  _componentIndexCache: 2
   _addedNetworkObject: {fileID: 8706744762456938368}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 8706744762456938368}
   spriteRenderer: {fileID: 3570352181283753586}
   slotSprites:
   - {fileID: 21300000, guid: 3989050caf6278c4aa0dce298e9cc0dd, type: 3}
